@@ -1,10 +1,14 @@
 package com.bottle.alan.messageinabottle;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +18,7 @@ import java.util.List;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -28,7 +33,9 @@ public class ScrollingMessages extends AppCompatActivity {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    public final static String MESSAGE_TEXT = "com.bottle.alan.MESSAGE";
 
+    private final static boolean DEBUG = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,42 +70,43 @@ public class ScrollingMessages extends AppCompatActivity {
         // setting list adapter
         expListView.setAdapter(listAdapter);
 
-        // Listview Group click listener
-        expListView.setOnGroupClickListener(new OnGroupClickListener() {
+        if (DEBUG) {
+            // Listview Group click listener
+            expListView.setOnGroupClickListener(new OnGroupClickListener() {
 
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
-                // Toast.makeText(getApplicationContext(),
-                // "Group Clicked " + listDataHeader.get(groupPosition),
-                // Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
+                @Override
+                public boolean onGroupClick(ExpandableListView parent, View v,
+                                            int groupPosition, long id) {
+                    // Toast.makeText(getApplicationContext(),
+                    // "Group Clicked " + listDataHeader.get(groupPosition),
+                    // Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            });
 
-        // Listview Group expanded listener
-        expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
+            // Listview Group expanded listener
+            expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
 
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onGroupExpand(int groupPosition) {
+                    Toast.makeText(getApplicationContext(),
+                            listDataHeader.get(groupPosition) + " Expanded",
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
 
-        // Listview Group collasped listener
-        expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
+            // Listview Group collasped listener
+            expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
 
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
+                @Override
+                public void onGroupCollapse(int groupPosition) {
+                    Toast.makeText(getApplicationContext(),
+                            listDataHeader.get(groupPosition) + " Collapsed",
+                            Toast.LENGTH_SHORT).show();
 
-            }
-        });
-
+                }
+            });
+        }
         // Listview on child click listener
         expListView.setOnChildClickListener(new OnChildClickListener() {
 
@@ -106,19 +114,63 @@ public class ScrollingMessages extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 // TODO Auto-generated method stub
-                Toast.makeText(
-                        getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
+
+                if (DEBUG) {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            listDataHeader.get(groupPosition)
+                                    + " : "
+                                    + listDataChild.get(
+                                    listDataHeader.get(groupPosition)).get(
+                                    childPosition), Toast.LENGTH_SHORT)
+                            .show();
+                }
+                Intent intent = new Intent(ScrollingMessages.this, ScrollingMessageDetails.class);
+                String message = listDataChild.get(
+                        listDataHeader.get(groupPosition)).get(
+                        childPosition);
+                intent.putExtra(MESSAGE_TEXT, message);
+                startActivity(intent);
                 return false;
             }
         });
 
 
+    }
+
+    private String m_Text = "";
+
+    public void sendMessage(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Send A Message");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT );
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                m_Text = input.getText().toString();
+                // RUN MESSAGE SEND POST REQUEST
+
+                Toast.makeText(
+                        getApplicationContext(), m_Text, Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
 

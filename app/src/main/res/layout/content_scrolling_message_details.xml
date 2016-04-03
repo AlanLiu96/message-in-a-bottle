@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_scrolling_message_details" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.bottle.alan.messageinabottle.ScrollingMessageDetails">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <TextView
+            android:id="@+id/messageDetails"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin" android:text="@string/large_text" />
+        <!-- TODO: Find CDF or other way to get the Wolfram App working-->
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+            <!--android:src="https://i.ytimg.com/vi/W-PBFMECvTE/maxresdefault.jpg" />-->
+            <!--android:src="@drawable/my_icon" />-->
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
