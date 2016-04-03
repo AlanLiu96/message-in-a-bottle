@@ -4,4 +4,5 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_scrolling_message_details">Message Details</string>
+    <string name="title_activity_node_map">NodeMap</string>
 </resources>

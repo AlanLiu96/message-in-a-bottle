@@ -39,4 +39,11 @@ public class ScrollingMessageDetails extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+
+    public void openMap(View view){
+        Intent intent = new Intent(ScrollingMessageDetails.this, NodeMap.class);
+        startActivity(intent);
+
+    }
 }

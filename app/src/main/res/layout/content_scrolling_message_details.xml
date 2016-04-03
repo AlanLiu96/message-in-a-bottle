@@ -5,10 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_scrolling_message_details" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     tools:context="com.bottle.alan.messageinabottle.ScrollingMessageDetails">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -16,14 +16,24 @@
             android:id="@+id/messageDetails"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin" android:text="@string/large_text" />
-        <!-- TODO: Find CDF or other way to get the Wolfram App working-->
-        <ImageView
-            android:id="@+id/imageView1"
+
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
-            <!--android:src="https://i.ytimg.com/vi/W-PBFMECvTE/maxresdefault.jpg" />-->
+            android:text="Map"
+            android:id="@+id/mapButton"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp"
+            android:clickable="true"
+            android:onClick="openMap"
+            />
+
+
+        <!-- TODO: Find CDF or other way to get the Wolfram App working-->
+
+        <!--android:src="https://i.ytimg.com/vi/W-PBFMECvTE/maxresdefault.jpg" />-->
             <!--android:src="@drawable/my_icon" />-->
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

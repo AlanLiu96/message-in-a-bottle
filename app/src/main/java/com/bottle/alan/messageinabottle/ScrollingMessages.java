@@ -41,7 +41,7 @@ public class ScrollingMessages extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling_messages); // REPLACE WITH ACTIVITY_MAIN
-
+    
 
         // RANDOM TOOLBAR
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
